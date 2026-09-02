@@ -23,7 +23,7 @@ proyecto-completo/
    contra `auth-api` local. Cámbialo a `catalogo-api` (8081) o
    `carrito-api` (8082) si quieres probar esos con el mismo botón.
 
-## ⚠️ Paso manual que TÚ debes hacer en Azure (no lo puedo hacer yo)
+## ⚠️ Paso manual en Azure
 Ve a [portal.azure.com](https://portal.azure.com) → Microsoft Entra ID →
 Registros de aplicaciones → tu app → **Autenticación** → agrega
 `http://localhost:5173/` como Redirect URI tipo **SPA** (sin borrar la que
@@ -77,7 +77,7 @@ Gateway que vimos en el chat.
 
 ---
 
-## 🎓 El flujo MSAL, explicado (para entender el frontend, no solo copiarlo)
+## 🎓 El flujo MSAL
 
 Todo el código del frontend (`main.jsx`, `AuthConfig.js`, `LoginButton.jsx`,
 `TokenSender.jsx`) tiene comentarios explicando cada pieza — acá va el
