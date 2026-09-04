@@ -1,0 +1,19 @@
+<!-- src/app/components/login/login.component.html -->
+<div class="login-container">
+  <h1>Pedidos360</h1>
+
+  <!-- *ngIf con "else" (sintaxis clasica de Angular, disponible aunque
+       tambien exista la nueva @if de Angular 17+ - usamos la clasica aca
+       porque es la que la mayoria de las guias/rubricas de MSAL Angular
+       muestran como referencia). -->
+  <div *ngIf="!nombreUsuario; else logueado">
+    <p>Inicia sesión con tu cuenta de Microsoft para continuar.</p>
+    <button (click)="iniciarSesion()">Iniciar sesión con Microsoft</button>
+  </div>
+
+  <ng-template #logueado>
+    <p>Hola, <strong>{{ nombreUsuario }}</strong></p>
+    <button (click)="irAlDashboard()">Ir al Dashboard</button>
+    <button (click)="cerrarSesion()">Cerrar sesión</button>
+  </ng-template>
+</div>

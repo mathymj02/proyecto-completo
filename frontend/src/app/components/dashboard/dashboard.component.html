@@ -1,0 +1,36 @@
+<!-- src/app/components/dashboard/dashboard.component.html -->
+<div class="dashboard-container">
+  <h1>Dashboard - Pedidos360</h1>
+
+  <section>
+    <h2>Permisos leídos del Access Token</h2>
+    <p *ngIf="permisosDelToken.length === 0">Cargando permisos...</p>
+    <ul>
+      <li *ngFor="let permiso of permisosDelToken">{{ permiso }}</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Respuesta de auth-api (/me)</h2>
+    <pre *ngIf="claimsBackend">{{ claimsBackend | json }}</pre>
+  </section>
+
+  <section>
+    <h2>Catálogo (catalogo-api)</h2>
+    <p *ngIf="cargando">Cargando productos...</p>
+    <p *ngIf="error" style="color:red">{{ error }}</p>
+    <ul>
+      <li *ngFor="let producto of productos">
+        {{ producto.nombre }} - ${{ producto.precio }} (stock: {{ producto.stock }})
+      </li>
+    </ul>
+    <button (click)="agregarPrimerProductoAlCarrito()" [disabled]="productos.length === 0">
+      Agregar primer producto al carrito
+    </button>
+  </section>
+
+  <section>
+    <h2>Mi carrito (carrito-api)</h2>
+    <pre *ngIf="carrito">{{ carrito | json }}</pre>
+  </section>
+</div>

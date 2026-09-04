@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: catalogo-api
+  datasource:
+    # DB_CLOSE_DELAY=-1: evita que H2 borre la base en memoria cuando el
+    # pool de conexiones cierra todas las conexiones inactivas (pasa tras
+    # varios minutos/horas sin trafico) - sin esto, la siguiente conexion
+    # crea una base NUEVA y VACIA, perdiendo la tabla y los datos.
+    url: jdbc:h2:mem:catalogodb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+azure:
+  tenant-id: e5372bf0-c5e3-4286-887c-79069f209c1f
+  client-id: 0d5904de-0d7a-474d-ba0a-d8a8ea6d14f8
+  expected-audience: 0d5904de-0d7a-474d-ba0a-d8a8ea6d14f8
+  issuer-v2: https://login.microsoftonline.com/e5372bf0-c5e3-4286-887c-79069f209c1f/v2.0
+
+cors:
+  allowed-origins: http://localhost:5173,http://localhost:4200,https://z97t6a0hfj.execute-api.us-east-1.amazonaws.com
+
+# TEMPORAL: para ver el motivo exacto de un 401 mientras depuramos.
+# Quitar esto despues (deja logs muy verbosos para produccion).
+logging:
+  level:
+    org.springframework.security: DEBUG

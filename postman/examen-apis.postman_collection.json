@@ -1,0 +1,148 @@
+{
+  "info": {
+    "name": "Examen - Auth, Catalogo y Carrito APIs",
+    "description": "Coleccion para probar las 3 APIs locales. Antes de usar: 1) importa tambien el environment 'examen-local', 2) copia el JWT capturado en el frontend (caja 'Token JWT Capturado') y pegalo en la variable 'token' del environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth API (8083)",
+      "item": [
+        {
+          "name": "Ping (publico, sin token)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{auth_url}}/api/v1/auth/public/ping", "host": ["{{auth_url}}"], "path": ["api", "v1", "auth", "public", "ping"] }
+          }
+        },
+        {
+          "name": "Me (protegido, devuelve claims del token)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{auth_url}}/api/v1/auth/me", "host": ["{{auth_url}}"], "path": ["api", "v1", "auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Catalogo API (8081)",
+      "item": [
+        {
+          "name": "Listar productos",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{catalogo_url}}/api/v1/catalogo/productos", "host": ["{{catalogo_url}}"], "path": ["api", "v1", "catalogo", "productos"] }
+          }
+        },
+        {
+          "name": "Obtener producto por id",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{catalogo_url}}/api/v1/catalogo/productos/1", "host": ["{{catalogo_url}}"], "path": ["api", "v1", "catalogo", "productos", "1"] }
+          }
+        },
+        {
+          "name": "Crear producto",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Audifonos Bluetooth\",\n  \"descripcion\": \"Cancelacion de ruido activa\",\n  \"precio\": 39990,\n  \"stock\": 12,\n  \"categoria\": \"Audio\",\n  \"imagenUrl\": \"\"\n}"
+            },
+            "url": { "raw": "{{catalogo_url}}/api/v1/catalogo/productos", "host": ["{{catalogo_url}}"], "path": ["api", "v1", "catalogo", "productos"] }
+          }
+        },
+        {
+          "name": "Actualizar producto",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Audifonos Bluetooth Pro\",\n  \"descripcion\": \"Cancelacion de ruido activa, edicion 2\",\n  \"precio\": 44990,\n  \"stock\": 10,\n  \"categoria\": \"Audio\",\n  \"imagenUrl\": \"\"\n}"
+            },
+            "url": { "raw": "{{catalogo_url}}/api/v1/catalogo/productos/1", "host": ["{{catalogo_url}}"], "path": ["api", "v1", "catalogo", "productos", "1"] }
+          }
+        },
+        {
+          "name": "Eliminar producto",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{catalogo_url}}/api/v1/catalogo/productos/1", "host": ["{{catalogo_url}}"], "path": ["api", "v1", "catalogo", "productos", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Carrito API (8082)",
+      "item": [
+        {
+          "name": "Obtener mi carrito",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{carrito_url}}/api/v1/carritos/mios", "host": ["{{carrito_url}}"], "path": ["api", "v1", "carritos", "mios"] }
+          }
+        },
+        {
+          "name": "Agregar item",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productoId\": 1,\n  \"nombreProducto\": \"Teclado mecanico\",\n  \"precioUnitario\": 29990,\n  \"cantidad\": 2\n}"
+            },
+            "url": { "raw": "{{carrito_url}}/api/v1/carritos/items", "host": ["{{carrito_url}}"], "path": ["api", "v1", "carritos", "items"] }
+          }
+        },
+        {
+          "name": "Actualizar cantidad de un item",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cantidad\": 5\n}"
+            },
+            "url": { "raw": "{{carrito_url}}/api/v1/carritos/items/1", "host": ["{{carrito_url}}"], "path": ["api", "v1", "carritos", "items", "1"] }
+          }
+        },
+        {
+          "name": "Eliminar item",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{carrito_url}}/api/v1/carritos/items/1", "host": ["{{carrito_url}}"], "path": ["api", "v1", "carritos", "items", "1"] }
+          }
+        },
+        {
+          "name": "Vaciar carrito",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{carrito_url}}/api/v1/carritos/mios", "host": ["{{carrito_url}}"], "path": ["api", "v1", "carritos", "mios"] }
+          }
+        }
+      ]
+    }
+  ]
+}

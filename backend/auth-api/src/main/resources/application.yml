@@ -1,0 +1,33 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: auth-api
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # JWK Set del tenant de Azure AD (misma authority que usa el frontend en AuthConfig.js)
+          jwk-set-uri: https://login.microsoftonline.com/${azure.tenant-id}/discovery/v2.0/keys
+
+# --- Datos de tu registro en Azure AD (los mismos del frontend AuthConfig.js) ---
+azure:
+  tenant-id: e5372bf0-c5e3-4286-887c-79069f209c1f
+  client-id: 0d5904de-0d7a-474d-ba0a-d8a8ea6d14f8
+  # El scope expuesto en "Expose an API" era: api://<client-id>/desarrollo/write-read
+  # Por eso el audience esperado en el token puede venir como "api://<client-id>"
+  expected-audience: 0d5904de-0d7a-474d-ba0a-d8a8ea6d14f8
+  # Si tu app registrada acepta tokens v1 (accessTokenAcceptedVersion=1 o null),
+  # el issuer real sera https://sts.windows.net/<tenant-id>/ en vez de la v2.0.
+  # Descomenta y ajusta si al probar ves un error "invalid issuer":
+  # issuer-v1: https://sts.windows.net/e5372bf0-c5e3-4286-887c-79069f209c1f/
+  issuer-v2: https://login.microsoftonline.com/e5372bf0-c5e3-4286-887c-79069f209c1f/v2.0
+
+cors:
+  allowed-origins: http://localhost:5173,http://localhost:4200,https://z97t6a0hfj.execute-api.us-east-1.amazonaws.com
+
+# TEMPORAL: para ver el motivo exacto de un 401 mientras depuramos.
+logging:
+  level:
+    org.springframework.security: DEBUG

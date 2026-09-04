@@ -1,0 +1,13 @@
+# Compilados de Maven
+target/
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Variables de entorno locales
+.env
+
+# Sistema
+.DS_Store
